@@ -153,7 +153,7 @@ const UserForm = ({ allClubs , userType }) => {
                 <FormControl fullWidth variant="filled"
                   sx={{ gridColumn: "span 2" }}
                 >
-                  <InputLabel>Clube</InputLabel>
+                  <InputLabel>Club</InputLabel>
                   <Select
                     value={values.clubId}
                     onChange={(event) => { handleChange(event); }}
