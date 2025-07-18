@@ -4,6 +4,7 @@ import ThemeButton from '../../components/ThemeButton';
 import AddMembers from './AddMembers';
 import ViewMembers from './ViewMembers';
 import Loading from '../../components/Loading';
+import AddMembersFromClub from './AddMembersFromClub';
 
 const ManageMembers = () => {
   const [mode, setMode] = useState("view-members") // there are two modes view members and add members
@@ -29,7 +30,7 @@ const ManageMembers = () => {
     </Box>
     {
       mode == "add-members"?
-      <AddMembers/> :
+      <AddMembersFromClub/> :
       <ViewMembers/>
     }
   </>

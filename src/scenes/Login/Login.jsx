@@ -4,6 +4,10 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Topbar from '../global/Topbar';
 import { AuthContext } from "../../context/AuthContext"
 import toast from 'react-hot-toast';
@@ -43,6 +47,14 @@ export default function Login({ user }) {
   const [userPassword, setUserPassword] = useState("")
   const { login } = useContext(AuthContext)
   const navigate = useNavigate()
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleShowPassword = () => {
+    setShowPassword((prev) => !prev);
+    console.log("showPassword", showPassword);
+
+  };
+
 
   const handleSubmit = async (values,{resetFrom}) => {
     if (!validateInputs(values.userEmail, values.userPassword)) {
@@ -149,17 +161,32 @@ export default function Login({ user }) {
                       sx={{marginBottom:"10px"}}
                     />
                     <TextField
-                      fullWidth
-                      variant="outlined"
-                      type="password"
-                      label="Password*"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.userPassword}
-                      name="userPassword"
-                      error={!!touched.userPassword && !!errors.userPassword}
-                      helperText={touched.userPassword && errors.userPassword}
-                    />
+  fullWidth
+  variant="outlined"
+  type={showPassword ? "text" : "password"}  // <-- this MUST change
+  label="Password*"
+  name="userPassword"                       // <-- must match Formik's field
+  value={values.userPassword}
+  onChange={handleChange}
+  onBlur={handleBlur}
+  error={!!touched.userPassword && !!errors.userPassword}
+  helperText={touched.userPassword && errors.userPassword}
+  sx={{ marginBottom: "10px" }}
+  InputProps={{
+    endAdornment: (
+      <InputAdornment position="end">
+        <IconButton
+          onClick={toggleShowPassword}
+          edge="end"
+          aria-label="toggle password visibility"
+        >
+          {showPassword ? <VisibilityOff /> : <Visibility />}
+        </IconButton>
+      </InputAdornment>
+    ),
+  }}
+/>
+
                   </Box>
                   <Box display="flex" justifyContent="end" mt="20px">
                     <Button
